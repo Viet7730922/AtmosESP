@@ -6,18 +6,21 @@
 #include <WiFiClientSecure.h>
 
 // ==========================================
-// 1. CẤU HÌNH WIFI, THINGSBOARD & GOOGLE SHEETS
+// 1. CẤU HÌNH WIFI & THINGSBOARD
 // ==========================================
 #define WIFI_SSID           "Wokwi-GUEST"
 #define WIFI_PASSWORD       ""
 #define THINGSBOARD_SERVER  "eu.thingsboard.cloud" 
 #define TOKEN               "OzpJ5mxL6G4R9p6wrRB1" 
 
-// WEB APP URL CỦA GOOGLE SCRIPT (nên dùng production thay vì /dev)
-String GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx1m7mYrpm_xzJSa8_baGTU7IWS8iuUtqqgCKSpZ4trZug4zeO4oI45nXmKjjDl5n05lg/exec"; 
+// ==========================================
+// 2. CẤU HÌNH TELEGRAM BOT (THAY THÔNG TIN CỦA BẠN)
+// ==========================================
+#define BOT_TOKEN   "8919276387:AAGc52bGK03gVELBDYwKd6t6iQgMMZ-ObTE"  // THAY BẰNG TOKEN CỦA BẠN
+#define CHAT_ID     "5413418959"  // THAY BẰNG CHAT ID CỦA BẠN
 
 // ==========================================
-// 2. ĐỊNH NGHĨA CÁC CHÂN
+// 3. ĐỊNH NGHĨA CÁC CHÂN CẢM BIẾN
 // ==========================================
 #define DHTPIN        4     
 #define LDR_PIN       33    
@@ -28,7 +31,7 @@ String GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx1m7mYrpm_x
 #define RELAY_PIN     23    
 
 // ==========================================
-// 3. KHỞI TẠO ĐỐI TƯỢNG
+// 4. KHỞI TẠO ĐỐI TƯỢNG
 // ==========================================
 #define DHTTYPE DHT22
 DHT dht(DHTPIN, DHTTYPE);
@@ -36,9 +39,16 @@ DHT dht(DHTPIN, DHTTYPE);
 WiFiClient espClient;
 PubSubClient client(espClient);
 
+// Biến quản lý cảnh báo Telegram
+bool lastWarningState = false;
+unsigned long lastTelegramSend = 0;
+const unsigned long TELEGRAM_COOLDOWN = 60000;  // 60 giây giữa các lần gửi nhắc lại
+
 // ==========================================
-// 4. HÀM TRỢ NĂNG
+// 5. HÀM TRỢ NĂNG
 // ==========================================
+
+// Tính điểm sương
 float calculateDewPoint(float temp, float humid) {
     if (humid <= 0.0 || humid > 100.0 || isnan(humid) || isnan(temp)) return 0.0; 
     float a = 17.27, b = 237.7;
@@ -46,92 +56,144 @@ float calculateDewPoint(float temp, float humid) {
     return (b * alpha) / (a - alpha);
 }
 
+// Mã hóa URL cho tiếng Việt và ký tự đặc biệt
+String urlEncode(String str) {
+    String encoded = "";
+    char c;
+    for (int i = 0; i < str.length(); i++) {
+        c = str.charAt(i);
+        if (isalnum(c) || c == '-' || c == '_' || c == '.' || c == '~') {
+            encoded += c;
+        } else if (c == ' ') {
+            encoded += "+";
+        } else {
+            encoded += '%';
+            char hex[3];
+            sprintf(hex, "%02X", (unsigned char)c);
+            encoded += hex;
+        }
+    }
+    return encoded;
+}
+
+// Gửi tin nhắn đến Telegram Bot
+bool sendToTelegram(String message) {
+    WiFiClientSecure secureClient;
+    secureClient.setInsecure();  // Bỏ qua kiểm tra SSL
+    
+    HTTPClient https;
+    
+    String url = "https://api.telegram.org/bot" + String(BOT_TOKEN) + 
+                 "/sendMessage?chat_id=" + String(CHAT_ID) + 
+                 "&text=" + urlEncode(message) +
+                 "&parse_mode=Markdown";
+    
+    https.begin(secureClient, url);
+    https.addHeader("Content-Type", "application/x-www-form-urlencoded");
+    
+    Serial.print("=> [TELEGRAM] Đang gửi... ");
+    
+    int httpCode = https.GET();
+    bool success = false;
+    
+    if (httpCode == 200) {
+        Serial.println("THÀNH CÔNG!");
+        success = true;
+    } else {
+        Serial.print("THẤT BẠI! Mã lỗi: ");
+        Serial.println(httpCode);
+        
+        if (httpCode > 0) {
+            String response = https.getString();
+            Serial.println("Phản hồi: " + response);
+        }
+    }
+    
+    https.end();
+    return success;
+}
+
+// Gửi cảnh báo khi phát hiện sự cố
+void sendWarningAlert(float temp, float hum, float rain, float wind, int gas) {
+    String message = "🚨 *CẢNH BÁO KHẨN CẤP!* 🚨\n\n";
+    message += "🌡️ *Nhiệt độ:* " + String(temp, 1) + "°C\n";
+    message += "💧 *Độ ẩm:* " + String(hum, 1) + "%\n";
+    message += "🌧️ *Lượng mưa:* " + String(rain, 1) + " mm\n";
+    message += "💨 *Tốc độ gió:* " + String(wind, 1) + " m/s\n";
+    message += "🔥 *Khí gas:* " + String(gas) + " ppm\n\n";
+    message += "⚠️ *Nguy cơ phát hiện:*\n";
+    
+    if (rain > 30) message += "• 🌧️ Mưa lớn (>30mm)\n";
+    if (wind > 20) message += "• 💨 Gió mạnh (>20m/s)\n";
+    if (gas > 500) message += "• 🔥 Rò rỉ khí gas (>500ppm)\n";
+    
+    message += "\n🔔 *Hệ thống đã kích hoạt relay cảnh báo!*";
+    
+    sendToTelegram(message);
+}
+
+// Gửi thông báo khi hết cảnh báo
+void sendNormalAlert() {
+    String message = "✅ *HỆ THỐNG ĐÃ TRỞ LẠI BÌNH THƯỜNG* ✅\n\n";
+    message += "Các chỉ số đã an toàn. Relay đã tắt.\n";
+    message += "🕐 Hệ thống tiếp tục giám sát...";
+    
+    sendToTelegram(message);
+}
+
+// Kết nối WiFi
 void setup_wifi() {
     delay(10);
-    Serial.println("\nĐang kết nối WiFi: " + String(WIFI_SSID));
+    Serial.println("\n📡 Đang kết nối WiFi: " + String(WIFI_SSID));
     WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+    
     while (WiFi.status() != WL_CONNECTED) {
         delay(500);
         Serial.print(".");
     }
-    Serial.println("\n[OK] Đã kết nối WiFi. IP: " + WiFi.localIP().toString());
+    
+    Serial.println("\n✅ Đã kết nối WiFi. IP: " + WiFi.localIP().toString());
 }
 
+// Kết nối lại ThingsBoard nếu mất
 void reconnect() {
     while (!client.connected()) {
-        Serial.print("Đang kết nối đến ThingsBoard...");
+        Serial.print("🔌 Đang kết nối đến ThingsBoard...");
         String clientId = "ESP32Client-" + String(random(0xffff), HEX);
+        
         if (client.connect(clientId.c_str(), TOKEN, "")) {
-            Serial.println(" [THÀNH CÔNG]");
+            Serial.println(" ✅ THÀNH CÔNG");
         } else {
-            Serial.print(" [THẤT BẠI] mã lỗi: ");
+            Serial.print(" ❌ THẤT BẠI (lỗi ");
             Serial.print(client.state());
-            Serial.println(" -> Thử lại sau 5 giây");
+            Serial.println(") -> Thử lại sau 5 giây");
             delay(5000);
         }
     }
 }
 
 // ==========================================
-// HÀM GỬI DỮ LIỆU LÊN GOOGLE SHEETS (ĐÃ SỬA LỖI SSL)
-// ==========================================
-void sendToGoogleSheets(float temp, float hum, float pres, float lux, 
-                       float rain, float wind, int gas, float dew, int relay) {
-    
-    WiFiClientSecure secureClient;
-    secureClient.setInsecure();
-    
-    HTTPClient http;
-    
-    // Tạo URL với tất cả dữ liệu là query parameters
-    String url = GOOGLE_SCRIPT_URL + "?";
-    url += "temp=" + String(temp, 2);
-    url += "&hum=" + String(hum, 1);
-    url += "&pres=" + String(pres, 2);
-    url += "&lux=" + String(lux, 1);
-    url += "&rain=" + String(rain, 1);
-    url += "&wind=" + String(wind, 2);
-    url += "&gas=" + String(gas);
-    url += "&dew=" + String(dew, 2);
-    url += "&relay=" + String(relay);
-    
-    Serial.print("=> [GOOGLE SHEETS] URL: ");
-    Serial.println(url);
-    
-    http.begin(secureClient, url);
-    
-    // Dùng GET thay vì POST
-    int httpResponseCode = http.GET();
-    
-    if (httpResponseCode > 0) {
-        Serial.print("Thành công! Mã: ");
-        Serial.println(httpResponseCode);
-        String response = http.getString();
-        if (response.length() > 0 && response.length() < 200) {
-            Serial.print("Phản hồi: ");
-            Serial.println(response);
-        }
-    } else {
-        Serial.print("Lỗi HTTP: ");
-        Serial.println(httpResponseCode);
-    }
-    
-    http.end();
-}
-
-// ==========================================
-// 5. SETUP
+// 6. SETUP
 // ==========================================
 void setup() {
     Serial.begin(115200);
     delay(2000);
     
+    Serial.println("\n========================================");
+    Serial.println("   ESP32 WEATHER MONITOR SYSTEM");
+    Serial.println("========================================\n");
+    
+    // Kết nối WiFi
     setup_wifi();
+    
+    // Cấu hình ThingsBoard
     client.setServer(THINGSBOARD_SERVER, 1883);
-
-    Serial.println("-> Khởi tạo DHT22...");
+    
+    // Khởi tạo cảm biến
+    Serial.println("🌡️ Khởi tạo DHT22...");
     dht.begin();
-
+    
+    // Cấu hình chân
     pinMode(LDR_PIN, INPUT);
     pinMode(PRESSURE_PIN, INPUT);
     pinMode(RAIN_PIN, INPUT);
@@ -139,66 +201,111 @@ void setup() {
     pinMode(GAS_PIN, INPUT);
     pinMode(RELAY_PIN, OUTPUT);
     digitalWrite(RELAY_PIN, LOW);
-
-    Serial.println("-> Hệ thống khởi động hoàn tất!\n");
+    
+    Serial.println("✅ Hệ thống khởi động hoàn tất!\n");
+    
+    // Gửi tin nhắn chào mừng qua Telegram
+    delay(3000);
+    sendToTelegram("🤖 *ESP32 WEATHER MONITOR KHỞI ĐỘNG* 🤖\n\n✅ Hệ thống giám sát thời tiết và cảnh báo đã sẵn sàng!\n\n📊 Đang theo dõi:\n• Nhiệt độ & Độ ẩm\n• Áp suất & Ánh sáng\n• Lượng mưa & Gió\n• Khí gas");
 }
 
 // ==========================================
-// 6. LOOP
+// 7. LOOP
 // ==========================================
 void loop() {
+    // Đảm bảo kết nối ThingsBoard
     if (!client.connected()) reconnect();
     client.loop(); 
-
-    // Đọc cảm biến
+    
+    // ==========================================
+    // ĐỌC DỮ LIỆU CẢM BIẾN
+    // ==========================================
+    
+    // DHT22 (Nhiệt độ, độ ẩm)
     float temperature = dht.readTemperature();
     float humidity = dht.readHumidity();
     if (isnan(temperature) || isnan(humidity)) { 
         temperature = 0.0; 
         humidity = 0.0; 
     }
-
+    
+    // Áp suất (mô phỏng từ cảm biến áp suất analog)
     int rawPressure = analogRead(PRESSURE_PIN);
     float pressure = map(rawPressure, 0, 4095, 90000, 110000) / 100.0F; 
-
+    
+    // Ánh sáng
     int rawLux = analogRead(LDR_PIN);
     float lux = map(rawLux, 0, 4095, 0, 10000); 
-
+    
+    // Lượng mưa
     int rawRain = analogRead(RAIN_PIN);
     float rainIntensity = map(rawRain, 0, 4095, 0, 100);
-
+    
+    // Tốc độ gió
     int rawWind = analogRead(WIND_PIN);
     float windSpeed = map(rawWind, 0, 4095, 0, 5000) / 100.0F;
-
+    
+    // Khí gas
     int rawGas = analogRead(GAS_PIN);
     int gasPPM = map(rawGas, 0, 4095, 0, 1000);
-
+    
+    // Điểm sương
     float dewPoint = calculateDewPoint(temperature, humidity);
-
-    // Xử lý Relay
-    bool isWarning = false;
-    if (rainIntensity > 30.0 || windSpeed > 20.0 || gasPPM > 500) {
+    
+    // ==========================================
+    // XỬ LÝ CẢNH BÁO & RELAY
+    // ==========================================
+    bool currentWarning = (rainIntensity > 30.0 || windSpeed > 20.0 || gasPPM > 500);
+    
+    // Điều khiển relay
+    if (currentWarning) {
         digitalWrite(RELAY_PIN, HIGH);
-        isWarning = true;
     } else {
         digitalWrite(RELAY_PIN, LOW);
     }
-
+    
+    // Gửi cảnh báo Telegram (chống gửi trùng)
+    unsigned long now = millis();
+    
+    if (currentWarning && !lastWarningState) {
+        // Chuyển từ an toàn → cảnh báo
+        Serial.println("⚠️ PHÁT HIỆN CẢNH BÁO! ⚠️");
+        sendWarningAlert(temperature, humidity, rainIntensity, windSpeed, gasPPM);
+        lastTelegramSend = now;
+    } 
+    else if (!currentWarning && lastWarningState) {
+        // Chuyển từ cảnh báo → an toàn
+        Serial.println("✅✅✅ HẾT CẢNH BÁO! ✅✅✅");
+        sendNormalAlert();
+        lastTelegramSend = now;
+    }
+    else if (currentWarning && lastWarningState && (now - lastTelegramSend > TELEGRAM_COOLDOWN)) {
+        // Cảnh báo kéo dài, nhắc lại sau mỗi 60 giây
+        Serial.println("⚠️ CẢNH BÁO KÉO DÀI - GỬI NHẮC LẠI");
+        sendWarningAlert(temperature, humidity, rainIntensity, windSpeed, gasPPM);
+        lastTelegramSend = now;
+    }
+    
+    lastWarningState = currentWarning;
+    
     // ==========================================
-    // 7. GỬI DỮ LIỆU LÊN THINGSBOARD
+    // GỬI DỮ LIỆU LÊN THINGSBOARD
     // ==========================================
-    String tb_payload = "{";
-    tb_payload += "\"Nhiệt độ\":" + String(temperature, 2) + ",";
-    tb_payload += "\"Độ ẩm\":" + String(humidity, 1) + ",";
-    tb_payload += "\"Áp suất\":" + String(pressure, 2) + ",";
-    tb_payload += "\"Ánh sáng\":" + String(lux, 1) + ",";
-    tb_payload += "\"Lượng mưa\":" + String(rainIntensity, 1) + ",";
-    tb_payload += "\"Tốc độ gió\":" + String(windSpeed, 2) + ",";
-    tb_payload += "\"Khí gas\":" + String(gasPPM) + ",";
-    tb_payload += "\"Điểm sương\":" + String(dewPoint, 2) + ",";
-    tb_payload += "\"Trạng thái Relay\":" + String(isWarning ? 1 : 0);
-    tb_payload += "}";
-
+    
+    // Payload hiển thị (có dấu - để in ra Serial)
+    String tb_payload_display = "{";
+    tb_payload_display += "\"Nhiệt độ\":" + String(temperature, 2) + ",";
+    tb_payload_display += "\"Độ ẩm\":" + String(humidity, 1) + ",";
+    tb_payload_display += "\"Áp suất\":" + String(pressure, 2) + ",";
+    tb_payload_display += "\"Ánh sáng\":" + String(lux, 1) + ",";
+    tb_payload_display += "\"Lượng mưa\":" + String(rainIntensity, 1) + ",";
+    tb_payload_display += "\"Tốc độ gió\":" + String(windSpeed, 2) + ",";
+    tb_payload_display += "\"Khí gas\":" + String(gasPPM) + ",";
+    tb_payload_display += "\"Điểm sương\":" + String(dewPoint, 2) + ",";
+    tb_payload_display += "\"Trạng thái Relay\":" + String(currentWarning ? 1 : 0);
+    tb_payload_display += "}";
+    
+    // Payload gửi lên ThingsBoard (không dấu)
     String payload = "{";
     payload += "\"temperature\":" + String(temperature, 2) + ",";
     payload += "\"humidity\":" + String(humidity, 1) + ",";
@@ -208,24 +315,21 @@ void loop() {
     payload += "\"wind_speed\":" + String(windSpeed, 2) + ",";
     payload += "\"gas_ppm\":" + String(gasPPM) + ",";
     payload += "\"dew_point\":" + String(dewPoint, 2) + ",";
-    payload += "\"relay_status\":" + String(isWarning ? 1 : 0);
+    payload += "\"relay_status\":" + String(currentWarning ? 1 : 0);
     payload += "}";
-
-    Serial.println("=> [THINGSBOARD] Payload: " + tb_payload);
-
+    
+    // In ra Serial để theo dõi
+    Serial.println("\n📊 DỮ LIỆU CẢM BIẾN:");
+    Serial.println(tb_payload_display);
+    
+    // Gửi lên ThingsBoard
     if (client.publish("v1/devices/me/telemetry", payload.c_str())) {
-        Serial.println("=> [THINGSBOARD] Đã gửi dữ liệu thành công");
+        Serial.println("✅ [THINGSBOARD] Gửi dữ liệu thành công");
     } else {
-        Serial.println("=> [THINGSBOARD] Gửi thất bại");
+        Serial.println("❌ [THINGSBOARD] Gửi thất bại");
     }
-
-    // ==========================================
-    // 8. GỬI DỮ LIỆU LÊN GOOGLE SHEETS
-    // ==========================================
-    // sendToGoogleSheets(temperature, humidity, pressure, lux, 
-    //                   rainIntensity, windSpeed, gasPPM, dewPoint, 
-    //                   isWarning ? 1 : 0);
-
-    Serial.println("-------------------------------");
-    delay(5000); 
+    
+    Serial.println("========================================\n");
+    
+    delay(5000);  // Gửi dữ liệu mỗi 5 giây
 }

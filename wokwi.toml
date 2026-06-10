@@ -5,7 +5,7 @@ elf = '.pio/build/esp32dev/firmware.elf'
 
 serialMonitor = { display = "always" }
 
-rfc2217ServerPort = 4000
+rfc2217ServerPort = 5000
 
 [meta]
 projectType = "platformio"

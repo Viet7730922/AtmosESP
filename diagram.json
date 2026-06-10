@@ -38,7 +38,7 @@
       "id": "gas_pot",
       "top": 142.7,
       "left": 307,
-      "attrs": { "label": "Air Quality MQ135" }
+      "attrs": { "label": "Gas (ppm)" }
     },
     { "type": "wokwi-relay-module", "id": "relay", "top": 38.6, "left": 307.2, "attrs": {} },
     {
@@ -67,7 +67,7 @@
       "id": "text_gas",
       "top": 114,
       "left": 307,
-      "attrs": { "text": "Air Quality MQ135" }
+      "attrs": { "text": "Gas (ppm)" }
     },
     {
       "type": "wokwi-text",
