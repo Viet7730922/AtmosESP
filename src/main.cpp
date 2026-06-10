@@ -14,7 +14,7 @@
 #define TOKEN               "OzpJ5mxL6G4R9p6wrRB1" 
 
 // WEB APP URL CỦA GOOGLE SCRIPT (nên dùng production thay vì /dev)
-String GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyEFNNzqOvaO1XTgBJ22ymy8vujSf0Bc4y5a7_L0PxItDxGsp8Yf0lpKvCXMPLb51RvDw/exec"; 
+String GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx1m7mYrpm_xzJSa8_baGTU7IWS8iuUtqqgCKSpZ4trZug4zeO4oI45nXmKjjDl5n05lg/exec"; 
 
 // ==========================================
 // 2. ĐỊNH NGHĨA CÁC CHÂN
@@ -79,45 +79,41 @@ void sendToGoogleSheets(float temp, float hum, float pres, float lux,
                        float rain, float wind, int gas, float dew, int relay) {
     
     WiFiClientSecure secureClient;
-    secureClient.setInsecure();                    // Bỏ qua kiểm tra chứng chỉ
-    // secureClient.setTimeout(15000);             
-
-    HTTPClient http;
-    http.setFollowRedirects(HTTPC_STRICT_FOLLOW_REDIRECTS);  // Ngăn redirect gây lỗi
-
-    http.begin(secureClient, GOOGLE_SCRIPT_URL);
-    http.addHeader("Content-Type", "application/json");
-
-    String gs_payload = "{";
-    gs_payload += "\"temp\":" + String(temp, 2) + ",";
-    gs_payload += "\"hum\":" + String(hum, 1) + ",";
-    gs_payload += "\"pres\":" + String(pres, 2) + ",";
-    gs_payload += "\"lux\":" + String(lux, 1) + ",";
-    gs_payload += "\"rain\":" + String(rain, 1) + ",";
-    gs_payload += "\"wind\":" + String(wind, 2) + ",";
-    gs_payload += "\"gas\":" + String(gas) + ",";
-    gs_payload += "\"dew\":" + String(dew, 2) + ",";
-    gs_payload += "\"relay\":" + String(relay);
-    gs_payload += "}";
-
-    Serial.print("=> [GOOGLE SHEETS] Đang gửi dữ liệu... ");
+    secureClient.setInsecure();
     
-    int httpResponseCode = http.POST(gs_payload);
+    HTTPClient http;
+    
+    // Tạo URL với tất cả dữ liệu là query parameters
+    String url = GOOGLE_SCRIPT_URL + "?";
+    url += "temp=" + String(temp, 2);
+    url += "&hum=" + String(hum, 1);
+    url += "&pres=" + String(pres, 2);
+    url += "&lux=" + String(lux, 1);
+    url += "&rain=" + String(rain, 1);
+    url += "&wind=" + String(wind, 2);
+    url += "&gas=" + String(gas);
+    url += "&dew=" + String(dew, 2);
+    url += "&relay=" + String(relay);
+    
+    Serial.print("=> [GOOGLE SHEETS] URL: ");
+    Serial.println(url);
+    
+    http.begin(secureClient, url);
+    
+    // Dùng GET thay vì POST
+    int httpResponseCode = http.GET();
     
     if (httpResponseCode > 0) {
         Serial.print("Thành công! Mã: ");
         Serial.println(httpResponseCode);
         String response = http.getString();
-        if (response.length() > 0 && response.length() < 100) {
-            Serial.print(" | Phản hồi: ");
+        if (response.length() > 0 && response.length() < 200) {
+            Serial.print("Phản hồi: ");
             Serial.println(response);
-        } else {
-            Serial.println(" | OK");
         }
     } else {
         Serial.print("Lỗi HTTP: ");
         Serial.println(httpResponseCode);
-        Serial.println("Chi tiết: " + http.errorToString(httpResponseCode));
     }
     
     http.end();
