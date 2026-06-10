@@ -62,7 +62,8 @@ WiFiClientSecure
 - Triển khai dưới dạng Web App (quyền Anyone hoặc Anyone with link)
 - Lấy URL và gán vào GOOGLE_SCRIPT_URL
 
-📤 Dữ liệu gửi lên Google Sheets (JSON)
+###📤 Dữ liệu gửi lên Google Sheets (JSON)
+</br>
 json
 {
   "temp": 26.5,
@@ -75,6 +76,7 @@ json
   "dew": 19.45,
   "relay": 0
 }
+
 ### 🧪 Mô phỏng với Wokwi
 Có thể chạy mô phỏng trực tiếp trên Wokwi với file diagram.json đi kèm. Các cảm biến dạng potentiometer dùng để mô phỏng:
 Pressure (hPa)
