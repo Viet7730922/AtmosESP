@@ -117,4 +117,5 @@ Relay và Telegram tự động BẬT / GỬI CẢNH BÁO khi:
 
 ### 👨‍💻 Tác giả
 Võ Quốc Việt NTU - MSSV: 65134318 - Nhóm 3: IoT và Ứng dụng </br>
-GitHub: Viet7730922/AtmosESP
+GitHub: [Viet7730922/AtmosESP](https://github.com/Viet7730922/AtmosESP)<br>
+File GG Drive hướng dẫn chi tiết: [AsmotphereReporter](https://drive.google.com/file/d/1NDPUi26vJS0BQoynyR75u60UcGblTChL/view?usp=drive_link)
