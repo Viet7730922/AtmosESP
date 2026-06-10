@@ -16,8 +16,8 @@
 // ==========================================
 // 2. CẤU HÌNH TELEGRAM BOT (THAY THÔNG TIN CỦA BẠN)
 // ==========================================
-#define BOT_TOKEN   "8919276387:AAGc52bGK03gVELBDYwKd6t6iQgMMZ-ObTE"  // THAY BẰNG TOKEN CỦA BẠN
-#define CHAT_ID     "5413418959"  // THAY BẰNG CHAT ID CỦA BẠN
+#define BOT_TOKEN   "..."  // THAY BẰNG TOKEN CỦA BẠN
+#define CHAT_ID     "..."  // THAY BẰNG CHAT ID CỦA BẠN
 
 // ==========================================
 // 3. ĐỊNH NGHĨA CÁC CHÂN CẢM BIẾN
