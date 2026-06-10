@@ -115,6 +115,7 @@ Relay và Telegram tự động BẬT / GỬI CẢNH BÁO khi:
 - DHT22 trả về NaN : Chân sai hoặc chưa khởi tạo	-> Kiểm tra DHTPIN, thêm dht.begin()
 - Gửi Telegram thành công nhưng không nhận tin nhắn :	Chat ID sai hoặc bot chưa start	-> Gửi /start cho bot, kiểm lại CHAT_ID
 
+---
 ### 👨‍💻 Tác giả
 Võ Quốc Việt NTU - MSSV: 65134318 - Nhóm 3: IoT và Ứng dụng </br>
 GitHub: [Viet7730922/AtmosESP](https://github.com/Viet7730922/AtmosESP)<br>
