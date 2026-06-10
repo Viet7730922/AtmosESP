@@ -1,0 +1,71 @@
+{
+  "version": 1,
+  "author": "Võ Quốc Việt NTU",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "board-esp32-devkit-c-v4", "id": "esp", "top": 0, "left": 0, "attrs": {} },
+    { "type": "wokwi-dht22", "id": "dht", "top": -172.5, "left": -111, "attrs": {} },
+    {
+      "type": "wokwi-photoresistor-sensor",
+      "id": "ldr",
+      "top": -131.2,
+      "left": -354.4,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-potentiometer",
+      "id": "pressure_pot",
+      "top": -106.9,
+      "left": 220.6,
+      "attrs": { "label": "Pressure (hPa)" }
+    },
+    {
+      "type": "wokwi-potentiometer",
+      "id": "rain_pot",
+      "top": 46.7,
+      "left": -288.2,
+      "attrs": { "label": "Rain (mm/h)" }
+    },
+    {
+      "type": "wokwi-potentiometer",
+      "id": "wind_pot",
+      "top": 161.9,
+      "left": -288.2,
+      "attrs": { "label": "Wind (mph)" }
+    },
+    {
+      "type": "wokwi-potentiometer",
+      "id": "gas_pot",
+      "top": 142.7,
+      "left": 307,
+      "attrs": { "label": "Air Quality MQ135" }
+    },
+    { "type": "wokwi-relay-module", "id": "relay", "top": 48.2, "left": 307.2, "attrs": {} }
+  ],
+  "connections": [
+    [ "esp:TX", "$serialMonitor:RX", "", [] ],
+    [ "esp:RX", "$serialMonitor:TX", "", [] ],
+    [ "esp:GND.1", "dht:GND", "black", [ "v-20", "h-100" ] ],
+    [ "esp:3V3", "dht:VCC", "red", [ "h-100.61", "v-40", "h-69" ] ],
+    [ "esp:4", "dht:SDA", "green", [ "h33.64", "v-182.4", "h-220.9" ] ],
+    [ "esp:GND.1", "ldr:GND", "black", [ "h-158.21", "v-258.8" ] ],
+    [ "esp:3V3", "ldr:VCC", "red", [ "v-40", "h-148.61", "v-113.6" ] ],
+    [ "esp:33", "ldr:AO", "blue", [ "h-14.21", "v28.8", "h-153.6", "v-210.5" ] ],
+    [ "esp:GND.1", "pressure_pot:GND", "black", [ "h-33.41", "v163.2", "h278.4" ] ],
+    [ "esp:3V3", "pressure_pot:VCC", "red", [ "h-4.61", "v-40", "h269" ] ],
+    [ "esp:36", "pressure_pot:SIG", "purple", [ "v-50", "h190" ] ],
+    [ "esp:GND.2", "rain_pot:GND", "black", [ "v-57.6", "h-407.96", "v163.2", "h48" ] ],
+    [ "esp:3V3", "rain_pot:VCC", "red", [ "h-100.61", "v115.2", "h-143.2" ] ],
+    [ "esp:34", "rain_pot:SIG", "cyan", [ "h-43.01", "v96", "h-210.8" ] ],
+    [ "esp:GND.2", "wind_pot:GND", "black", [ "h81.64", "v249.6", "h-441.6" ] ],
+    [ "esp:3V3", "wind_pot:VCC", "red", [ "h-119.81", "v220.8", "h-124" ] ],
+    [ "esp:35", "wind_pot:SIG", "orange", [ "h-139.01", "v192", "h-114.8" ] ],
+    [ "esp:GND.2", "gas_pot:GND", "black", [ "v20", "h110.44", "v191.2", "h163.2" ] ],
+    [ "esp:3V3", "gas_pot:VCC", "red", [ "h-100.61", "v220.8", "h452" ] ],
+    [ "esp:32", "gas_pot:SIG", "yellow", [ "h-62.21", "v182.4", "h403.6" ] ],
+    [ "esp:GND.1", "relay:GND", "black", [ "h-33.41", "v144", "h316.8", "v-220.4" ] ],
+    [ "esp:5V", "relay:VCC", "red", [ "v-40", "h273.79", "v-94.4" ] ],
+    [ "esp:23", "relay:IN", "green", [ "h168.04", "v48.2" ] ]
+  ],
+  "dependencies": {}
+}
