@@ -14,7 +14,7 @@
 #define TOKEN               "OzpJ5mxL6G4R9p6wrRB1" 
 
 // WEB APP URL CỦA GOOGLE SCRIPT (nên dùng production thay vì /dev)
-String GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzqEx3l3VkCM-GJ4URKrvKmbEjdec3ijt4ArrN5VehKPvoa4wdJhsrSD1Snm_wVNCfzDQ/exec"; 
+String GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyEFNNzqOvaO1XTgBJ22ymy8vujSf0Bc4y5a7_L0PxItDxGsp8Yf0lpKvCXMPLb51RvDw/exec"; 
 
 // ==========================================
 // 2. ĐỊNH NGHĨA CÁC CHÂN
@@ -80,10 +80,10 @@ void sendToGoogleSheets(float temp, float hum, float pres, float lux,
     
     WiFiClientSecure secureClient;
     secureClient.setInsecure();                    // Bỏ qua kiểm tra chứng chỉ
-    // secureClient.setTimeout(15000);             // Tăng timeout nếu cần
+    // secureClient.setTimeout(15000);             
 
     HTTPClient http;
-    http.setFollowRedirects(HTTPC_DISABLE_FOLLOW_REDIRECTS);  // Ngăn redirect gây lỗi
+    http.setFollowRedirects(HTTPC_STRICT_FOLLOW_REDIRECTS);  // Ngăn redirect gây lỗi
 
     http.begin(secureClient, GOOGLE_SCRIPT_URL);
     http.addHeader("Content-Type", "application/json");
@@ -203,9 +203,21 @@ void loop() {
     tb_payload += "\"Trạng thái Relay\":" + String(isWarning ? 1 : 0);
     tb_payload += "}";
 
+    String payload = "{";
+    payload += "\"temperature\":" + String(temperature, 2) + ",";
+    payload += "\"humidity\":" + String(humidity, 1) + ",";
+    payload += "\"pressure\":" + String(pressure, 2) + ",";
+    payload += "\"light\":" + String(lux, 1) + ",";
+    payload += "\"rain\":" + String(rainIntensity, 1) + ",";
+    payload += "\"wind_speed\":" + String(windSpeed, 2) + ",";
+    payload += "\"gas_ppm\":" + String(gasPPM) + ",";
+    payload += "\"dew_point\":" + String(dewPoint, 2) + ",";
+    payload += "\"relay_status\":" + String(isWarning ? 1 : 0);
+    payload += "}";
+
     Serial.println("=> [THINGSBOARD] Payload: " + tb_payload);
 
-    if (client.publish("v1/devices/me/telemetry", tb_payload.c_str())) {
+    if (client.publish("v1/devices/me/telemetry", payload.c_str())) {
         Serial.println("=> [THINGSBOARD] Đã gửi dữ liệu thành công");
     } else {
         Serial.println("=> [THINGSBOARD] Gửi thất bại");
@@ -214,9 +226,9 @@ void loop() {
     // ==========================================
     // 8. GỬI DỮ LIỆU LÊN GOOGLE SHEETS
     // ==========================================
-    sendToGoogleSheets(temperature, humidity, pressure, lux, 
-                      rainIntensity, windSpeed, gasPPM, dewPoint, 
-                      isWarning ? 1 : 0);
+    // sendToGoogleSheets(temperature, humidity, pressure, lux, 
+    //                   rainIntensity, windSpeed, gasPPM, dewPoint, 
+    //                   isWarning ? 1 : 0);
 
     Serial.println("-------------------------------");
     delay(5000); 

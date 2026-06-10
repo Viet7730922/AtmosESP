@@ -26,303 +26,84 @@
       "toolbarAlwaysOpen": true
     },
     "widgets": {
-      "86866f27-7486-4a3b-b4e9-952eca84e30b": {
+      "c6069485-56a7-4758-b384-f4fe046b922e": {
         "sizeX": 0,
         "sizeY": 0,
         "row": 0,
         "col": 0,
         "config": {
           "configMode": "basic",
-          "title": "Humidity",
-          "titleFont": {
-            "size": 21,
-            "sizeUnit": "px",
-            "weight": "500",
-            "lineHeight": "22px"
-          },
-          "showTitle": true,
+          "title": "Wind Speed",
+          "showTitle": false,
           "dropShadow": false,
           "enableFullscreen": false,
           "enableDataExport": false,
-          "useDashboardTimewindow": true,
-          "borderRadius": "8px",
-          "widgetStyle": {
-            "box-shadow": "0px 2px 4px 0px #00000024;"
-          },
-          "units": "",
-          "decimals": 0,
-          "actions": {},
-          "settings": {},
-          "datasources": [
-            {
-              "type": "entity",
-              "dataKeys": [
-                {
-                  "name": "humidity",
-                  "label": "Humidity",
-                  "type": "timeseries",
-                  "color": "var(--tb-primary-500)",
-                  "settings": {}
-                }
-              ],
-              "latestDataKeys": [
-                {
-                  "name": "humidity",
-                  "label": "Humidity",
-                  "type": "timeseries",
-                  "color": "var(--tb-primary-500)",
-                  "settings": {}
-                }
-              ],
-              "entityAliasId": "a35d7eb3-ca02-4ba6-ad7f-a5e5832b4bcd"
-            }
-          ]
-        },
-        "id": "86866f27-7486-4a3b-b4e9-952eca84e30b",
-        "typeFullFqn": "system.simple_value_and_chart_card",
-        "type": "timeseries"
-      },
-      "c94eeed8-6804-403b-8892-c2f74b02464c": {
-        "sizeX": 0,
-        "sizeY": 0,
-        "row": 0,
-        "col": 0,
-        "config": {
-          "configMode": "basic",
-          "title": "Environmental Trend",
-          "titleFont": {
-            "size": 21,
-            "sizeUnit": "px",
-            "weight": "500",
-            "lineHeight": "22px"
-          },
-          "showTitle": true,
-          "dropShadow": false,
-          "useDashboardTimewindow": true,
           "padding": "0px",
           "margin": "0px",
           "borderRadius": "8px",
           "widgetStyle": {
             "box-shadow": "0px 2px 4px 0px #00000024;"
           },
+          "widgetCss": "tb-icon {\n  display: inline-flex;\n  justify-content: center;\n  align-items: center;\n  border-radius: 50%;\n  width: 40px!important;\n  height: 40px!important;\n  background-color: var(--tb-primary-50);\n}\n\n.tb-value-card-icon-row {\n    width: 50%;\n    justify-content: space-between;\n}\n",
+          "units": "m/s",
+          "decimals": 2,
           "actions": {},
           "settings": {
-            "dataZoom": false,
-            "showLegend": false,
-            "legendConfig": {
-              "position": "top",
-              "sortDataKeys": false,
-              "showMin": false,
-              "showMax": false,
-              "showAvg": true,
-              "showTotal": false,
-              "showLatest": false
+            "layout": "horizontal",
+            "showLabel": true,
+            "labelColor": {
+              "type": "constant",
+              "color": "#000000DE"
             },
-            "xAxis": {
-              "show": true,
-              "position": "bottom"
+            "showIcon": true,
+            "icon": "air",
+            "iconColor": {
+              "type": "constant",
+              "color": "var(--tb-primary-500)"
             },
-            "yAxis": {
-              "show": true,
-              "position": "left"
+            "iconSize": 24,
+            "iconSizeUnit": "px",
+            "valueColor": {
+              "type": "constant",
+              "color": "#000000DE"
             },
-            "yAxes": {
-              "env": {
-                "id": "env",
-                "label": "Environment",
-                "position": "left",
-                "min": null,
-                "max": null,
-                "units": "",
-                "decimals": 1,
-                "order": 0
-              }
-            }
+            "valueFont": {
+              "size": 30
+            },
+            "labelFont": {
+              "size": 20
+            },
+            "showDate": false,
+            "autoScale": true
           },
           "datasources": [
             {
               "type": "entity",
               "dataKeys": [
                 {
-                  "name": "temperature",
-                  "label": "Temperature",
+                  "name": "Tốc độ gió",
+                  "label": "Wind",
                   "type": "timeseries",
-                  "units": "",
-                  "decimals": 1,
-                  "color": "#2196F3",
-                  "settings": {
-                    "yAxisId": "env",
-                    "showLegend": true
-                  }
-                },
-                {
-                  "name": "humidity",
-                  "label": "Humidity",
-                  "type": "timeseries",
-                  "units": "",
-                  "decimals": 0,
-                  "color": "#4CAF50",
-                  "settings": {
-                    "yAxisId": "env",
-                    "showLegend": true
-                  }
-                },
-                {
-                  "name": "dewPoint",
-                  "label": "Dew Point",
-                  "type": "timeseries",
-                  "units": "",
-                  "decimals": 1,
-                  "color": "#9C27B0",
-                  "settings": {
-                    "yAxisId": "env",
-                    "showLegend": true
-                  }
-                }
-              ],
-              "entityAliasId": "a35d7eb3-ca02-4ba6-ad7f-a5e5832b4bcd"
-            }
-          ]
-        },
-        "id": "c94eeed8-6804-403b-8892-c2f74b02464c",
-        "typeFullFqn": "system.time_series_chart",
-        "type": "timeseries"
-      },
-      "29209554-7581-49cb-b745-20ebd17dbca1": {
-        "sizeX": 0,
-        "sizeY": 0,
-        "row": 0,
-        "col": 0,
-        "config": {
-          "configMode": "basic",
-          "title": "ESP32 Status",
-          "showTitle": false,
-          "dropShadow": false,
-          "enableFullscreen": false,
-          "enableDataExport": false,
-          "padding": "10px",
-          "borderRadius": "8px",
-          "widgetStyle": {
-            "box-shadow": "0px 2px 4px 0px #00000024;"
-          },
-          "actions": {},
-          "settings": {
-            "useMarkdownTextFunction": false,
-            "markdownTextPattern": "<div class=\"value-block flex flex-col justify-between gap-2\"><div class=\"flex flex-1\"><span class=\"title\">ESP32 Status</span></div><div class=\"flex flex-col justify-between gap-1\"><div class=\"flex flex-row justify-between\"><span class=\"label\">Status</span><span class=\"value\" [ngClass]=\"${Status} ? 'active' : 'inactive'\" [innerText]=\"${Status} ? 'Online' : 'Offline'\"></span></div><div class=\"flex flex-row justify-between\"><span class=\"label\">Last Activity</span><span class=\"value\">${Last Activity}</span></div><div class=\"flex flex-row justify-between\"><span class=\"label\">Last Connect</span><span class=\"value\">${Last Connect}</span></div><div class=\"flex flex-row justify-between\"><span class=\"label\">Inactivity Alarm</span><span class=\"value\">${Inactivity Alarm}</span></div></div></div>",
-            "applyDefaultMarkdownStyle": false,
-            "markdownCss": ".label { font-weight: 400; font-size: 16px; line-height: 21px; letter-spacing: 0.2px; color: #424242; } .value { padding: 4px; font-weight: 500; font-size: 16px; line-height: 21px; letter-spacing: 0.2px; color: #212121; } .title { font-weight: 600; font-size: 18px; line-height: 21px; letter-spacing: 0.2px; color: #212121; } .value-block { height: 100%; } .active { border-radius: 6px; background: #4CAF50; color: #FFFFFF; } .inactive { border-radius: 6px; background: #F5F5F5; color: #757575; }"
-          },
-          "datasources": [
-            {
-              "type": "entity",
-              "dataKeys": [
-                {
-                  "name": "active",
-                  "label": "Status",
-                  "type": "attribute",
                   "color": "var(--tb-primary-500)",
                   "settings": {}
-                },
-                {
-                  "name": "lastActivityTime",
-                  "label": "Last Activity",
-                  "type": "attribute",
-                  "color": "var(--tb-primary-500)",
-                  "settings": {},
-                  "usePostProcessing": true,
-                  "postFuncBody": "var friendlyTime = moment(value).format('DD.MM.YYYY HH:mm'); return friendlyTime;"
-                },
-                {
-                  "name": "lastConnectTime",
-                  "label": "Last Connect",
-                  "type": "attribute",
-                  "color": "var(--tb-primary-500)",
-                  "settings": {},
-                  "usePostProcessing": true,
-                  "postFuncBody": "var friendlyTime = moment(value).format('DD.MM.YYYY HH:mm'); return friendlyTime;"
-                },
-                {
-                  "name": "inactivityAlarmTime",
-                  "label": "Inactivity Alarm",
-                  "type": "attribute",
-                  "color": "var(--tb-primary-500)",
-                  "settings": {},
-                  "usePostProcessing": true,
-                  "postFuncBody": "var friendlyTime = moment(value).format('DD.MM.YYYY HH:mm'); return friendlyTime;"
                 }
               ],
-              "entityAliasId": "a35d7eb3-ca02-4ba6-ad7f-a5e5832b4bcd"
+              "entityAliasId": "c75c6364-3d74-41ad-8d36-8c0adcd63bf0"
             }
           ]
         },
-        "id": "29209554-7581-49cb-b745-20ebd17dbca1",
-        "typeFullFqn": "system.cards.markdown_card",
+        "id": "c6069485-56a7-4758-b384-f4fe046b922e",
+        "typeFullFqn": "system.cards.horizontal_value_card",
         "type": "latest"
       },
-      "6a6e0d65-827a-46ab-a95a-65ec89f11de1": {
+      "b743785a-18c2-4f08-9117-046d3edbf3fa": {
         "sizeX": 0,
         "sizeY": 0,
         "row": 0,
         "col": 0,
         "config": {
           "configMode": "basic",
-          "title": "Temperature",
-          "titleFont": {
-            "size": 21,
-            "sizeUnit": "px",
-            "weight": "500",
-            "lineHeight": "22px"
-          },
-          "showTitle": true,
-          "dropShadow": false,
-          "enableFullscreen": false,
-          "enableDataExport": false,
-          "useDashboardTimewindow": true,
-          "borderRadius": "8px",
-          "widgetStyle": {
-            "box-shadow": "0px 2px 4px 0px #00000024;"
-          },
-          "units": "",
-          "decimals": 1,
-          "actions": {},
-          "settings": {},
-          "datasources": [
-            {
-              "type": "entity",
-              "dataKeys": [
-                {
-                  "name": "temperature",
-                  "label": "Temperature",
-                  "type": "timeseries",
-                  "color": "var(--tb-primary-500)",
-                  "settings": {}
-                }
-              ],
-              "latestDataKeys": [
-                {
-                  "name": "temperature",
-                  "label": "Temperature",
-                  "type": "timeseries",
-                  "color": "var(--tb-primary-500)",
-                  "settings": {}
-                }
-              ],
-              "entityAliasId": "a35d7eb3-ca02-4ba6-ad7f-a5e5832b4bcd"
-            }
-          ]
-        },
-        "id": "6a6e0d65-827a-46ab-a95a-65ec89f11de1",
-        "typeFullFqn": "system.simple_value_and_chart_card",
-        "type": "timeseries"
-      },
-      "939c160c-607f-47f1-8994-f4b54ae48a5d": {
-        "sizeX": 0,
-        "sizeY": 0,
-        "row": 0,
-        "col": 0,
-        "config": {
-          "configMode": "basic",
-          "title": "Relay Status",
+          "title": "Relay Activity",
           "titleFont": {
             "size": 21,
             "sizeUnit": "px",
@@ -362,7 +143,7 @@
             "yAxes": {
               "default": {
                 "id": "default",
-                "label": "Relay",
+                "label": "State",
                 "position": "left",
                 "min": null,
                 "max": null,
@@ -373,13 +154,13 @@
             },
             "states": [
               {
-                "label": "On",
+                "label": "ON",
                 "value": 1,
                 "sourceType": "constant",
                 "sourceValue": 1
               },
               {
-                "label": "Off",
+                "label": "OFF",
                 "value": 0,
                 "sourceType": "constant",
                 "sourceValue": 0
@@ -391,33 +172,103 @@
               "type": "entity",
               "dataKeys": [
                 {
-                  "name": "relay_status",
-                  "label": "Relay",
+                  "name": "Trạng thái Relay",
+                  "label": "Relay Status",
                   "type": "timeseries",
                   "decimals": 0,
-                  "color": "#3F51B5",
+                  "color": "#607D8B",
                   "settings": {
                     "yAxisId": "default",
                     "showLegend": true
                   }
                 }
               ],
-              "entityAliasId": "a35d7eb3-ca02-4ba6-ad7f-a5e5832b4bcd"
+              "entityAliasId": "c75c6364-3d74-41ad-8d36-8c0adcd63bf0"
             }
           ]
         },
-        "id": "939c160c-607f-47f1-8994-f4b54ae48a5d",
+        "id": "b743785a-18c2-4f08-9117-046d3edbf3fa",
         "typeFullFqn": "system.state_chart",
         "type": "timeseries"
       },
-      "27e77fd1-117e-41a3-879d-7433e65e591f": {
+      "4326db80-dbd9-439a-a815-e986f27aa07d": {
         "sizeX": 0,
         "sizeY": 0,
         "row": 0,
         "col": 0,
         "config": {
           "configMode": "basic",
-          "title": "Ambient Light",
+          "title": "Gas Level",
+          "showTitle": false,
+          "dropShadow": false,
+          "enableFullscreen": false,
+          "enableDataExport": false,
+          "padding": "0px",
+          "margin": "0px",
+          "borderRadius": "8px",
+          "widgetStyle": {
+            "box-shadow": "0px 2px 4px 0px #00000024;"
+          },
+          "widgetCss": "tb-icon {\n  display: inline-flex;\n  justify-content: center;\n  align-items: center;\n  border-radius: 50%;\n  width: 40px!important;\n  height: 40px!important;\n  background-color: var(--tb-primary-50);\n}\n\n.tb-value-card-icon-row {\n    width: 50%;\n    justify-content: space-between;\n}\n",
+          "units": "",
+          "decimals": 0,
+          "actions": {},
+          "settings": {
+            "layout": "horizontal",
+            "showLabel": true,
+            "labelColor": {
+              "type": "constant",
+              "color": "#000000DE"
+            },
+            "showIcon": true,
+            "icon": "gas_meter",
+            "iconColor": {
+              "type": "constant",
+              "color": "var(--tb-primary-500)"
+            },
+            "iconSize": 24,
+            "iconSizeUnit": "px",
+            "valueColor": {
+              "type": "constant",
+              "color": "#000000DE"
+            },
+            "valueFont": {
+              "size": 30
+            },
+            "labelFont": {
+              "size": 20
+            },
+            "showDate": false,
+            "autoScale": true
+          },
+          "datasources": [
+            {
+              "type": "entity",
+              "dataKeys": [
+                {
+                  "name": "Khí gas",
+                  "label": "Gas",
+                  "type": "timeseries",
+                  "color": "var(--tb-primary-500)",
+                  "settings": {}
+                }
+              ],
+              "entityAliasId": "c75c6364-3d74-41ad-8d36-8c0adcd63bf0"
+            }
+          ]
+        },
+        "id": "4326db80-dbd9-439a-a815-e986f27aa07d",
+        "typeFullFqn": "system.cards.horizontal_value_card",
+        "type": "latest"
+      },
+      "d9e50a6e-d820-4579-bb81-5a186f4a8a44": {
+        "sizeX": 0,
+        "sizeY": 0,
+        "row": 0,
+        "col": 0,
+        "config": {
+          "configMode": "basic",
+          "title": "Pressure",
           "titleFont": {
             "size": 21,
             "sizeUnit": "px",
@@ -432,15 +283,15 @@
           "widgetStyle": {
             "box-shadow": "0px 2px 4px 0px #00000024;"
           },
-          "units": "",
-          "decimals": 0,
+          "units": "hPa",
+          "decimals": 1,
           "actions": {},
           "settings": {
-            "minValue": 0,
-            "maxValue": 10000,
+            "minValue": 900,
+            "maxValue": 1100,
             "gaugeType": "arc",
             "showTitle": true,
-            "title": "Ambient Light",
+            "title": "Pressure",
             "titleFont": {
               "color": "#000000DE"
             },
@@ -450,7 +301,7 @@
             "showMinMax": false,
             "barColor": {
               "type": "constant",
-              "color": "#FFEB3B",
+              "color": "#2196F3",
               "gradient": {
                 "advancedMode": false,
                 "gradient": [
@@ -471,8 +322,8 @@
                     "color": "rgba(255, 0, 0, 1)"
                   }
                 ],
-                "minValue": 0,
-                "maxValue": 10000
+                "minValue": 900,
+                "maxValue": 1100
               }
             },
             "showValue": true
@@ -482,29 +333,100 @@
               "type": "entity",
               "dataKeys": [
                 {
-                  "name": "lux",
-                  "label": "Lux",
+                  "name": "Áp suất",
+                  "label": "Pressure",
                   "type": "timeseries",
                   "color": "#000000DE",
                   "settings": {}
                 }
               ],
-              "entityAliasId": "a35d7eb3-ca02-4ba6-ad7f-a5e5832b4bcd"
+              "entityAliasId": "c75c6364-3d74-41ad-8d36-8c0adcd63bf0"
             }
           ]
         },
-        "id": "27e77fd1-117e-41a3-879d-7433e65e591f",
+        "id": "d9e50a6e-d820-4579-bb81-5a186f4a8a44",
         "typeFullFqn": "system.digital_gauges.simple_gauge_justgage",
         "type": "latest"
       },
-      "5ea22541-a3b7-4f39-bbdc-7024c2697eec": {
+      "c4e04047-226e-4842-bd73-44a6c3fd0d34": {
         "sizeX": 0,
         "sizeY": 0,
         "row": 0,
         "col": 0,
         "config": {
           "configMode": "basic",
-          "title": "Atmospheric & Conditions",
+          "title": "Device Connectivity",
+          "showTitle": false,
+          "dropShadow": false,
+          "enableFullscreen": false,
+          "enableDataExport": false,
+          "padding": "10px",
+          "borderRadius": "8px",
+          "widgetStyle": {
+            "box-shadow": "0px 2px 4px 0px #00000024;"
+          },
+          "actions": {},
+          "settings": {
+            "useMarkdownTextFunction": false,
+            "markdownTextPattern": "<div class=\"value-block flex flex-col justify-between gap-2\"><div class=\"flex flex-1\"><span class=\"title\">Device Connectivity</span></div><div class=\"flex flex-col justify-between gap-1\"><div class=\"flex flex-row justify-between\"><span class=\"label\">Status</span><span class=\"value\" [ngClass]=\"${Status} ? 'active' : 'inactive'\" [innerText]=\"${Status} ? 'Online' : 'Offline'\"></span></div><div class=\"flex flex-row justify-between\"><span class=\"label\">Last Activity</span><span class=\"value\">${Last Activity}</span></div><div class=\"flex flex-row justify-between\"><span class=\"label\">Last Connect</span><span class=\"value\">${Last Connect}</span></div><div class=\"flex flex-row justify-between\"><span class=\"label\">Last Disconnect</span><span class=\"value\">${Last Disconnect}</span></div></div></div>",
+            "applyDefaultMarkdownStyle": false,
+            "markdownCss": ".label { font-weight: 400; font-size: 16px; line-height: 21px; letter-spacing: 0.2px; color: #424242; } .value { padding: 4px; font-weight: 500; font-size: 16px; line-height: 21px; letter-spacing: 0.2px; color: #212121; } .title { font-weight: 600; font-size: 18px; line-height: 21px; letter-spacing: 0.2px; color: #212121; } .value-block { height: 100%; } .active { border-radius: 6px; background: #303F9F; color: #E8EAF6; } .inactive { border-radius: 6px; background: #F5F5F5; color: #757575; }"
+          },
+          "datasources": [
+            {
+              "type": "entity",
+              "dataKeys": [
+                {
+                  "name": "active",
+                  "label": "Status",
+                  "type": "attribute",
+                  "color": "var(--tb-primary-500)",
+                  "settings": {}
+                },
+                {
+                  "name": "lastActivityTime",
+                  "label": "Last Activity",
+                  "type": "attribute",
+                  "color": "var(--tb-primary-500)",
+                  "settings": {},
+                  "usePostProcessing": true,
+                  "postFuncBody": "var friendlyTime = moment(value).format('DD.MM.YYYY HH:mm'); return friendlyTime;"
+                },
+                {
+                  "name": "lastConnectTime",
+                  "label": "Last Connect",
+                  "type": "attribute",
+                  "color": "var(--tb-primary-500)",
+                  "settings": {},
+                  "usePostProcessing": true,
+                  "postFuncBody": "var friendlyTime = moment(value).format('DD.MM.YYYY HH:mm'); return friendlyTime;"
+                },
+                {
+                  "name": "lastDisconnectTime",
+                  "label": "Last Disconnect",
+                  "type": "attribute",
+                  "color": "var(--tb-primary-500)",
+                  "settings": {},
+                  "usePostProcessing": true,
+                  "postFuncBody": "var friendlyTime = moment(value).format('DD.MM.YYYY HH:mm'); return friendlyTime;"
+                }
+              ],
+              "entityAliasId": "c75c6364-3d74-41ad-8d36-8c0adcd63bf0"
+            }
+          ]
+        },
+        "id": "c4e04047-226e-4842-bd73-44a6c3fd0d34",
+        "typeFullFqn": "system.cards.markdown_card",
+        "type": "latest"
+      },
+      "7e95b8f9-7d7c-43c5-96de-0a7261a923b5": {
+        "sizeX": 0,
+        "sizeY": 0,
+        "row": 0,
+        "col": 0,
+        "config": {
+          "configMode": "basic",
+          "title": "Environment Trends",
           "titleFont": {
             "size": 21,
             "sizeUnit": "px",
@@ -542,23 +464,23 @@
               "position": "left"
             },
             "yAxes": {
-              "press": {
-                "id": "press",
-                "label": "Pressure",
+              "temp": {
+                "id": "temp",
+                "label": "Temperature",
                 "position": "left",
                 "min": null,
                 "max": null,
-                "units": "",
+                "units": "°C",
                 "decimals": 1,
                 "order": 0
               },
-              "weather": {
-                "id": "weather",
-                "label": "Weather",
+              "hum": {
+                "id": "hum",
+                "label": "Humidity",
                 "position": "right",
                 "min": null,
                 "max": null,
-                "units": "",
+                "units": "%",
                 "decimals": 1,
                 "order": 1
               }
@@ -569,47 +491,390 @@
               "type": "entity",
               "dataKeys": [
                 {
-                  "name": "pressure",
-                  "label": "Pressure",
+                  "name": "Nhiệt độ",
+                  "label": "Temperature",
                   "type": "timeseries",
-                  "units": "",
+                  "units": "°C",
                   "decimals": 1,
-                  "color": "#FF9800",
+                  "color": "#F44336",
                   "settings": {
-                    "yAxisId": "press",
+                    "yAxisId": "temp",
                     "showLegend": true
                   }
                 },
                 {
-                  "name": "windSpeed",
+                  "name": "Độ ẩm",
+                  "label": "Humidity",
+                  "type": "timeseries",
+                  "units": "%",
+                  "decimals": 1,
+                  "color": "#2196F3",
+                  "settings": {
+                    "yAxisId": "hum",
+                    "showLegend": true
+                  }
+                },
+                {
+                  "name": "Điểm sương",
+                  "label": "Dew Point",
+                  "type": "timeseries",
+                  "units": "°C",
+                  "decimals": 1,
+                  "color": "#4CAF50",
+                  "settings": {
+                    "yAxisId": "temp",
+                    "showLegend": true
+                  }
+                }
+              ],
+              "entityAliasId": "c75c6364-3d74-41ad-8d36-8c0adcd63bf0"
+            }
+          ]
+        },
+        "id": "7e95b8f9-7d7c-43c5-96de-0a7261a923b5",
+        "typeFullFqn": "system.time_series_chart",
+        "type": "timeseries"
+      },
+      "834cdffd-98ee-4ec7-ac4a-249f64b7e8ed": {
+        "sizeX": 0,
+        "sizeY": 0,
+        "row": 0,
+        "col": 0,
+        "config": {
+          "configMode": "basic",
+          "title": "Rainfall",
+          "showTitle": false,
+          "dropShadow": false,
+          "enableFullscreen": false,
+          "enableDataExport": false,
+          "padding": "0px",
+          "margin": "0px",
+          "borderRadius": "8px",
+          "widgetStyle": {
+            "box-shadow": "0px 2px 4px 0px #00000024;"
+          },
+          "widgetCss": "tb-icon {\n  display: inline-flex;\n  justify-content: center;\n  align-items: center;\n  border-radius: 50%;\n  width: 40px!important;\n  height: 40px!important;\n  background-color: var(--tb-primary-50);\n}\n\n.tb-value-card-icon-row {\n    width: 50%;\n    justify-content: space-between;\n}\n",
+          "units": "mm",
+          "decimals": 1,
+          "actions": {},
+          "settings": {
+            "layout": "horizontal",
+            "showLabel": true,
+            "labelColor": {
+              "type": "constant",
+              "color": "#000000DE"
+            },
+            "showIcon": true,
+            "icon": "cloudy_snowing",
+            "iconColor": {
+              "type": "constant",
+              "color": "var(--tb-primary-500)"
+            },
+            "iconSize": 24,
+            "iconSizeUnit": "px",
+            "valueColor": {
+              "type": "constant",
+              "color": "#000000DE"
+            },
+            "valueFont": {
+              "size": 30
+            },
+            "labelFont": {
+              "size": 20
+            },
+            "showDate": false,
+            "autoScale": true
+          },
+          "datasources": [
+            {
+              "type": "entity",
+              "dataKeys": [
+                {
+                  "name": "Lượng mưa",
+                  "label": "Rain",
+                  "type": "timeseries",
+                  "color": "var(--tb-primary-500)",
+                  "settings": {}
+                }
+              ],
+              "entityAliasId": "c75c6364-3d74-41ad-8d36-8c0adcd63bf0"
+            }
+          ]
+        },
+        "id": "834cdffd-98ee-4ec7-ac4a-249f64b7e8ed",
+        "typeFullFqn": "system.cards.horizontal_value_card",
+        "type": "latest"
+      },
+      "a09978c2-c358-4b88-be27-517304214d9e": {
+        "sizeX": 0,
+        "sizeY": 0,
+        "row": 0,
+        "col": 0,
+        "config": {
+          "configMode": "basic",
+          "title": "Temperature",
+          "titleFont": {
+            "size": 21,
+            "sizeUnit": "px",
+            "weight": "500",
+            "lineHeight": "22px"
+          },
+          "showTitle": false,
+          "dropShadow": false,
+          "enableFullscreen": false,
+          "enableDataExport": false,
+          "borderRadius": "8px",
+          "widgetStyle": {
+            "box-shadow": "0px 2px 4px 0px #00000024;"
+          },
+          "units": "°C",
+          "decimals": 1,
+          "actions": {},
+          "settings": {
+            "minValue": 0,
+            "maxValue": 100,
+            "gaugeType": "arc",
+            "showTitle": true,
+            "title": "Temperature",
+            "titleFont": {
+              "color": "#000000DE"
+            },
+            "labelFont": {},
+            "valueFont": {},
+            "minMaxFont": {},
+            "showMinMax": false,
+            "barColor": {
+              "type": "constant",
+              "color": "#FF5722",
+              "gradient": {
+                "advancedMode": false,
+                "gradient": [
+                  "rgba(0, 255, 0, 1)",
+                  "rgba(255, 0, 0, 1)"
+                ],
+                "gradientAdvanced": [
+                  {
+                    "source": {
+                      "type": "constant"
+                    },
+                    "color": "rgba(0, 255, 0, 1)"
+                  },
+                  {
+                    "source": {
+                      "type": "constant"
+                    },
+                    "color": "rgba(255, 0, 0, 1)"
+                  }
+                ],
+                "minValue": 0,
+                "maxValue": 100
+              }
+            },
+            "showValue": true
+          },
+          "datasources": [
+            {
+              "type": "entity",
+              "dataKeys": [
+                {
+                  "name": "Nhiệt độ",
+                  "label": "Temperature",
+                  "type": "timeseries",
+                  "color": "#000000DE",
+                  "settings": {}
+                }
+              ],
+              "entityAliasId": "c75c6364-3d74-41ad-8d36-8c0adcd63bf0"
+            }
+          ]
+        },
+        "id": "a09978c2-c358-4b88-be27-517304214d9e",
+        "typeFullFqn": "system.digital_gauges.simple_gauge_justgage",
+        "type": "latest"
+      },
+      "40aa4361-fd75-4a02-bec3-fe62e563a934": {
+        "sizeX": 0,
+        "sizeY": 0,
+        "row": 0,
+        "col": 0,
+        "config": {
+          "configMode": "basic",
+          "title": "Light Intensity",
+          "showTitle": false,
+          "dropShadow": false,
+          "enableFullscreen": false,
+          "enableDataExport": false,
+          "padding": "0px",
+          "margin": "0px",
+          "borderRadius": "8px",
+          "widgetStyle": {
+            "box-shadow": "0px 2px 4px 0px #00000024;"
+          },
+          "widgetCss": "tb-icon {\n  display: inline-flex;\n  justify-content: center;\n  align-items: center;\n  border-radius: 50%;\n  width: 40px!important;\n  height: 40px!important;\n  background-color: var(--tb-primary-50);\n}\n\n.tb-value-card-icon-row {\n    width: 50%;\n    justify-content: space-between;\n}\n",
+          "units": "lux",
+          "decimals": 0,
+          "actions": {},
+          "settings": {
+            "layout": "horizontal",
+            "showLabel": true,
+            "labelColor": {
+              "type": "constant",
+              "color": "#000000DE"
+            },
+            "showIcon": true,
+            "icon": "light_mode",
+            "iconColor": {
+              "type": "constant",
+              "color": "var(--tb-primary-500)"
+            },
+            "iconSize": 24,
+            "iconSizeUnit": "px",
+            "valueColor": {
+              "type": "constant",
+              "color": "#000000DE"
+            },
+            "valueFont": {
+              "size": 30
+            },
+            "labelFont": {
+              "size": 20
+            },
+            "showDate": false,
+            "autoScale": true
+          },
+          "datasources": [
+            {
+              "type": "entity",
+              "dataKeys": [
+                {
+                  "name": "Ánh sáng",
+                  "label": "Light",
+                  "type": "timeseries",
+                  "color": "var(--tb-primary-500)",
+                  "settings": {}
+                }
+              ],
+              "entityAliasId": "c75c6364-3d74-41ad-8d36-8c0adcd63bf0"
+            }
+          ]
+        },
+        "id": "40aa4361-fd75-4a02-bec3-fe62e563a934",
+        "typeFullFqn": "system.cards.horizontal_value_card",
+        "type": "latest"
+      },
+      "270ac03d-0067-4b96-8a87-50e3cc24ec81": {
+        "sizeX": 0,
+        "sizeY": 0,
+        "row": 0,
+        "col": 0,
+        "config": {
+          "configMode": "basic",
+          "title": "Weather & Light",
+          "titleFont": {
+            "size": 21,
+            "sizeUnit": "px",
+            "weight": "500",
+            "lineHeight": "22px"
+          },
+          "showTitle": true,
+          "dropShadow": false,
+          "useDashboardTimewindow": true,
+          "padding": "0px",
+          "margin": "0px",
+          "borderRadius": "8px",
+          "widgetStyle": {
+            "box-shadow": "0px 2px 4px 0px #00000024;"
+          },
+          "actions": {},
+          "settings": {
+            "dataZoom": false,
+            "showLegend": false,
+            "legendConfig": {
+              "position": "top",
+              "sortDataKeys": false,
+              "showMin": false,
+              "showMax": false,
+              "showAvg": true,
+              "showTotal": false,
+              "showLatest": false
+            },
+            "xAxis": {
+              "show": true,
+              "position": "bottom"
+            },
+            "yAxis": {
+              "show": true,
+              "position": "left"
+            },
+            "yAxes": {
+              "weather": {
+                "id": "weather",
+                "label": "Weather",
+                "position": "left",
+                "min": null,
+                "max": null,
+                "units": "m/s",
+                "decimals": 2,
+                "order": 0
+              },
+              "light": {
+                "id": "light",
+                "label": "Light",
+                "position": "right",
+                "min": null,
+                "max": null,
+                "units": "lux",
+                "decimals": 0,
+                "order": 1
+              }
+            }
+          },
+          "datasources": [
+            {
+              "type": "entity",
+              "dataKeys": [
+                {
+                  "name": "Tốc độ gió",
                   "label": "Wind Speed",
                   "type": "timeseries",
-                  "units": "",
-                  "decimals": 1,
-                  "color": "#607D8B",
+                  "units": "m/s",
+                  "decimals": 2,
+                  "color": "#9C27B0",
                   "settings": {
                     "yAxisId": "weather",
                     "showLegend": true
                   }
                 },
                 {
-                  "name": "rainIntensity",
-                  "label": "Rain Intensity",
+                  "name": "Lượng mưa",
+                  "label": "Rainfall",
                   "type": "timeseries",
-                  "units": "",
+                  "units": "mm",
                   "decimals": 1,
                   "color": "#03A9F4",
                   "settings": {
                     "yAxisId": "weather",
                     "showLegend": true
                   }
+                },
+                {
+                  "name": "Ánh sáng",
+                  "label": "Light Intensity",
+                  "type": "timeseries",
+                  "units": "lux",
+                  "decimals": 0,
+                  "color": "#FFEB3B",
+                  "settings": {
+                    "yAxisId": "light",
+                    "showLegend": true
+                  }
                 }
               ],
-              "entityAliasId": "a35d7eb3-ca02-4ba6-ad7f-a5e5832b4bcd"
+              "entityAliasId": "c75c6364-3d74-41ad-8d36-8c0adcd63bf0"
             }
           ]
         },
-        "id": "5ea22541-a3b7-4f39-bbdc-7024c2697eec",
+        "id": "270ac03d-0067-4b96-8a87-50e3cc24ec81",
         "typeFullFqn": "system.time_series_chart",
         "type": "timeseries"
       }
@@ -621,47 +886,65 @@
         "layouts": {
           "main": {
             "widgets": {
-              "86866f27-7486-4a3b-b4e9-952eca84e30b": {
-                "sizeX": 5,
-                "sizeY": 4,
-                "col": 18,
-                "row": 8
+              "c6069485-56a7-4758-b384-f4fe046b922e": {
+                "sizeX": 6,
+                "sizeY": 2,
+                "col": 6,
+                "row": 3
               },
-              "c94eeed8-6804-403b-8892-c2f74b02464c": {
-                "sizeX": 11,
-                "sizeY": 4,
-                "col": 0,
-                "row": 4
-              },
-              "29209554-7581-49cb-b745-20ebd17dbca1": {
-                "sizeX": 11,
-                "sizeY": 4,
-                "col": 0,
-                "row": 0
-              },
-              "6a6e0d65-827a-46ab-a95a-65ec89f11de1": {
-                "sizeX": 5,
-                "sizeY": 4,
-                "col": 13,
-                "row": 8
-              },
-              "939c160c-607f-47f1-8994-f4b54ae48a5d": {
-                "sizeX": 8,
-                "sizeY": 4,
-                "col": 0,
-                "row": 8
-              },
-              "27e77fd1-117e-41a3-879d-7433e65e591f": {
-                "sizeX": 5,
-                "sizeY": 4,
-                "col": 8,
-                "row": 8
-              },
-              "5ea22541-a3b7-4f39-bbdc-7024c2697eec": {
+              "b743785a-18c2-4f08-9117-046d3edbf3fa": {
                 "sizeX": 12,
-                "sizeY": 8,
-                "col": 11,
+                "sizeY": 5,
+                "col": 0,
+                "row": 7
+              },
+              "4326db80-dbd9-439a-a815-e986f27aa07d": {
+                "sizeX": 6,
+                "sizeY": 2,
+                "col": 0,
+                "row": 3
+              },
+              "d9e50a6e-d820-4579-bb81-5a186f4a8a44": {
+                "sizeX": 6,
+                "sizeY": 3,
+                "col": 18,
                 "row": 0
+              },
+              "c4e04047-226e-4842-bd73-44a6c3fd0d34": {
+                "sizeX": 12,
+                "sizeY": 3,
+                "col": 0,
+                "row": 0
+              },
+              "7e95b8f9-7d7c-43c5-96de-0a7261a923b5": {
+                "sizeX": 12,
+                "sizeY": 5,
+                "col": 12,
+                "row": 7
+              },
+              "834cdffd-98ee-4ec7-ac4a-249f64b7e8ed": {
+                "sizeX": 6,
+                "sizeY": 2,
+                "col": 0,
+                "row": 5
+              },
+              "a09978c2-c358-4b88-be27-517304214d9e": {
+                "sizeX": 6,
+                "sizeY": 3,
+                "col": 12,
+                "row": 0
+              },
+              "40aa4361-fd75-4a02-bec3-fe62e563a934": {
+                "sizeX": 6,
+                "sizeY": 2,
+                "col": 6,
+                "row": 5
+              },
+              "270ac03d-0067-4b96-8a87-50e3cc24ec81": {
+                "sizeX": 12,
+                "sizeY": 4,
+                "col": 12,
+                "row": 3
               }
             },
             "gridSettings": {
@@ -678,8 +961,8 @@
       }
     },
     "entityAliases": {
-      "a35d7eb3-ca02-4ba6-ad7f-a5e5832b4bcd": {
-        "id": "a35d7eb3-ca02-4ba6-ad7f-a5e5832b4bcd",
+      "c75c6364-3d74-41ad-8d36-8c0adcd63bf0": {
+        "id": "c75c6364-3d74-41ad-8d36-8c0adcd63bf0",
         "alias": "Device",
         "filter": {
           "resolveMultiple": false,
