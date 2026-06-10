@@ -1,0 +1,700 @@
+{
+  "title": "Esp32 Dashboard",
+  "name": "Esp32 Dashboard",
+  "image": null,
+  "mobileHide": false,
+  "mobileOrder": null,
+  "configuration": {
+    "timewindow": {
+      "selectedTab": 1,
+      "history": {
+        "historyType": 0,
+        "timewindowMs": 3600000
+      },
+      "aggregation": {
+        "type": "NONE",
+        "limit": 25000
+      }
+    },
+    "settings": {
+      "stateControllerId": "entity",
+      "showTitle": false,
+      "showDashboardsSelect": true,
+      "showEntitiesSelect": true,
+      "showDashboardTimewindow": true,
+      "showDashboardExport": true,
+      "toolbarAlwaysOpen": true
+    },
+    "widgets": {
+      "86866f27-7486-4a3b-b4e9-952eca84e30b": {
+        "sizeX": 0,
+        "sizeY": 0,
+        "row": 0,
+        "col": 0,
+        "config": {
+          "configMode": "basic",
+          "title": "Humidity",
+          "titleFont": {
+            "size": 21,
+            "sizeUnit": "px",
+            "weight": "500",
+            "lineHeight": "22px"
+          },
+          "showTitle": true,
+          "dropShadow": false,
+          "enableFullscreen": false,
+          "enableDataExport": false,
+          "useDashboardTimewindow": true,
+          "borderRadius": "8px",
+          "widgetStyle": {
+            "box-shadow": "0px 2px 4px 0px #00000024;"
+          },
+          "units": "",
+          "decimals": 0,
+          "actions": {},
+          "settings": {},
+          "datasources": [
+            {
+              "type": "entity",
+              "dataKeys": [
+                {
+                  "name": "humidity",
+                  "label": "Humidity",
+                  "type": "timeseries",
+                  "color": "var(--tb-primary-500)",
+                  "settings": {}
+                }
+              ],
+              "latestDataKeys": [
+                {
+                  "name": "humidity",
+                  "label": "Humidity",
+                  "type": "timeseries",
+                  "color": "var(--tb-primary-500)",
+                  "settings": {}
+                }
+              ],
+              "entityAliasId": "a35d7eb3-ca02-4ba6-ad7f-a5e5832b4bcd"
+            }
+          ]
+        },
+        "id": "86866f27-7486-4a3b-b4e9-952eca84e30b",
+        "typeFullFqn": "system.simple_value_and_chart_card",
+        "type": "timeseries"
+      },
+      "c94eeed8-6804-403b-8892-c2f74b02464c": {
+        "sizeX": 0,
+        "sizeY": 0,
+        "row": 0,
+        "col": 0,
+        "config": {
+          "configMode": "basic",
+          "title": "Environmental Trend",
+          "titleFont": {
+            "size": 21,
+            "sizeUnit": "px",
+            "weight": "500",
+            "lineHeight": "22px"
+          },
+          "showTitle": true,
+          "dropShadow": false,
+          "useDashboardTimewindow": true,
+          "padding": "0px",
+          "margin": "0px",
+          "borderRadius": "8px",
+          "widgetStyle": {
+            "box-shadow": "0px 2px 4px 0px #00000024;"
+          },
+          "actions": {},
+          "settings": {
+            "dataZoom": false,
+            "showLegend": false,
+            "legendConfig": {
+              "position": "top",
+              "sortDataKeys": false,
+              "showMin": false,
+              "showMax": false,
+              "showAvg": true,
+              "showTotal": false,
+              "showLatest": false
+            },
+            "xAxis": {
+              "show": true,
+              "position": "bottom"
+            },
+            "yAxis": {
+              "show": true,
+              "position": "left"
+            },
+            "yAxes": {
+              "env": {
+                "id": "env",
+                "label": "Environment",
+                "position": "left",
+                "min": null,
+                "max": null,
+                "units": "",
+                "decimals": 1,
+                "order": 0
+              }
+            }
+          },
+          "datasources": [
+            {
+              "type": "entity",
+              "dataKeys": [
+                {
+                  "name": "temperature",
+                  "label": "Temperature",
+                  "type": "timeseries",
+                  "units": "",
+                  "decimals": 1,
+                  "color": "#2196F3",
+                  "settings": {
+                    "yAxisId": "env",
+                    "showLegend": true
+                  }
+                },
+                {
+                  "name": "humidity",
+                  "label": "Humidity",
+                  "type": "timeseries",
+                  "units": "",
+                  "decimals": 0,
+                  "color": "#4CAF50",
+                  "settings": {
+                    "yAxisId": "env",
+                    "showLegend": true
+                  }
+                },
+                {
+                  "name": "dewPoint",
+                  "label": "Dew Point",
+                  "type": "timeseries",
+                  "units": "",
+                  "decimals": 1,
+                  "color": "#9C27B0",
+                  "settings": {
+                    "yAxisId": "env",
+                    "showLegend": true
+                  }
+                }
+              ],
+              "entityAliasId": "a35d7eb3-ca02-4ba6-ad7f-a5e5832b4bcd"
+            }
+          ]
+        },
+        "id": "c94eeed8-6804-403b-8892-c2f74b02464c",
+        "typeFullFqn": "system.time_series_chart",
+        "type": "timeseries"
+      },
+      "29209554-7581-49cb-b745-20ebd17dbca1": {
+        "sizeX": 0,
+        "sizeY": 0,
+        "row": 0,
+        "col": 0,
+        "config": {
+          "configMode": "basic",
+          "title": "ESP32 Status",
+          "showTitle": false,
+          "dropShadow": false,
+          "enableFullscreen": false,
+          "enableDataExport": false,
+          "padding": "10px",
+          "borderRadius": "8px",
+          "widgetStyle": {
+            "box-shadow": "0px 2px 4px 0px #00000024;"
+          },
+          "actions": {},
+          "settings": {
+            "useMarkdownTextFunction": false,
+            "markdownTextPattern": "<div class=\"value-block flex flex-col justify-between gap-2\"><div class=\"flex flex-1\"><span class=\"title\">ESP32 Status</span></div><div class=\"flex flex-col justify-between gap-1\"><div class=\"flex flex-row justify-between\"><span class=\"label\">Status</span><span class=\"value\" [ngClass]=\"${Status} ? 'active' : 'inactive'\" [innerText]=\"${Status} ? 'Online' : 'Offline'\"></span></div><div class=\"flex flex-row justify-between\"><span class=\"label\">Last Activity</span><span class=\"value\">${Last Activity}</span></div><div class=\"flex flex-row justify-between\"><span class=\"label\">Last Connect</span><span class=\"value\">${Last Connect}</span></div><div class=\"flex flex-row justify-between\"><span class=\"label\">Inactivity Alarm</span><span class=\"value\">${Inactivity Alarm}</span></div></div></div>",
+            "applyDefaultMarkdownStyle": false,
+            "markdownCss": ".label { font-weight: 400; font-size: 16px; line-height: 21px; letter-spacing: 0.2px; color: #424242; } .value { padding: 4px; font-weight: 500; font-size: 16px; line-height: 21px; letter-spacing: 0.2px; color: #212121; } .title { font-weight: 600; font-size: 18px; line-height: 21px; letter-spacing: 0.2px; color: #212121; } .value-block { height: 100%; } .active { border-radius: 6px; background: #4CAF50; color: #FFFFFF; } .inactive { border-radius: 6px; background: #F5F5F5; color: #757575; }"
+          },
+          "datasources": [
+            {
+              "type": "entity",
+              "dataKeys": [
+                {
+                  "name": "active",
+                  "label": "Status",
+                  "type": "attribute",
+                  "color": "var(--tb-primary-500)",
+                  "settings": {}
+                },
+                {
+                  "name": "lastActivityTime",
+                  "label": "Last Activity",
+                  "type": "attribute",
+                  "color": "var(--tb-primary-500)",
+                  "settings": {},
+                  "usePostProcessing": true,
+                  "postFuncBody": "var friendlyTime = moment(value).format('DD.MM.YYYY HH:mm'); return friendlyTime;"
+                },
+                {
+                  "name": "lastConnectTime",
+                  "label": "Last Connect",
+                  "type": "attribute",
+                  "color": "var(--tb-primary-500)",
+                  "settings": {},
+                  "usePostProcessing": true,
+                  "postFuncBody": "var friendlyTime = moment(value).format('DD.MM.YYYY HH:mm'); return friendlyTime;"
+                },
+                {
+                  "name": "inactivityAlarmTime",
+                  "label": "Inactivity Alarm",
+                  "type": "attribute",
+                  "color": "var(--tb-primary-500)",
+                  "settings": {},
+                  "usePostProcessing": true,
+                  "postFuncBody": "var friendlyTime = moment(value).format('DD.MM.YYYY HH:mm'); return friendlyTime;"
+                }
+              ],
+              "entityAliasId": "a35d7eb3-ca02-4ba6-ad7f-a5e5832b4bcd"
+            }
+          ]
+        },
+        "id": "29209554-7581-49cb-b745-20ebd17dbca1",
+        "typeFullFqn": "system.cards.markdown_card",
+        "type": "latest"
+      },
+      "6a6e0d65-827a-46ab-a95a-65ec89f11de1": {
+        "sizeX": 0,
+        "sizeY": 0,
+        "row": 0,
+        "col": 0,
+        "config": {
+          "configMode": "basic",
+          "title": "Temperature",
+          "titleFont": {
+            "size": 21,
+            "sizeUnit": "px",
+            "weight": "500",
+            "lineHeight": "22px"
+          },
+          "showTitle": true,
+          "dropShadow": false,
+          "enableFullscreen": false,
+          "enableDataExport": false,
+          "useDashboardTimewindow": true,
+          "borderRadius": "8px",
+          "widgetStyle": {
+            "box-shadow": "0px 2px 4px 0px #00000024;"
+          },
+          "units": "",
+          "decimals": 1,
+          "actions": {},
+          "settings": {},
+          "datasources": [
+            {
+              "type": "entity",
+              "dataKeys": [
+                {
+                  "name": "temperature",
+                  "label": "Temperature",
+                  "type": "timeseries",
+                  "color": "var(--tb-primary-500)",
+                  "settings": {}
+                }
+              ],
+              "latestDataKeys": [
+                {
+                  "name": "temperature",
+                  "label": "Temperature",
+                  "type": "timeseries",
+                  "color": "var(--tb-primary-500)",
+                  "settings": {}
+                }
+              ],
+              "entityAliasId": "a35d7eb3-ca02-4ba6-ad7f-a5e5832b4bcd"
+            }
+          ]
+        },
+        "id": "6a6e0d65-827a-46ab-a95a-65ec89f11de1",
+        "typeFullFqn": "system.simple_value_and_chart_card",
+        "type": "timeseries"
+      },
+      "939c160c-607f-47f1-8994-f4b54ae48a5d": {
+        "sizeX": 0,
+        "sizeY": 0,
+        "row": 0,
+        "col": 0,
+        "config": {
+          "configMode": "basic",
+          "title": "Relay Status",
+          "titleFont": {
+            "size": 21,
+            "sizeUnit": "px",
+            "weight": "500",
+            "lineHeight": "22px"
+          },
+          "showTitle": true,
+          "dropShadow": false,
+          "useDashboardTimewindow": true,
+          "padding": "0px",
+          "margin": "0px",
+          "borderRadius": "8px",
+          "widgetStyle": {
+            "box-shadow": "0px 2px 4px 0px #00000024;"
+          },
+          "actions": {},
+          "settings": {
+            "dataZoom": false,
+            "showLegend": false,
+            "legendConfig": {
+              "position": "top",
+              "sortDataKeys": false,
+              "showMin": false,
+              "showMax": false,
+              "showAvg": true,
+              "showTotal": false,
+              "showLatest": false
+            },
+            "xAxis": {
+              "show": true,
+              "position": "bottom"
+            },
+            "yAxis": {
+              "show": true,
+              "position": "left"
+            },
+            "yAxes": {
+              "default": {
+                "id": "default",
+                "label": "Relay",
+                "position": "left",
+                "min": null,
+                "max": null,
+                "units": null,
+                "decimals": null,
+                "order": 0
+              }
+            },
+            "states": [
+              {
+                "label": "On",
+                "value": 1,
+                "sourceType": "constant",
+                "sourceValue": 1
+              },
+              {
+                "label": "Off",
+                "value": 0,
+                "sourceType": "constant",
+                "sourceValue": 0
+              }
+            ]
+          },
+          "datasources": [
+            {
+              "type": "entity",
+              "dataKeys": [
+                {
+                  "name": "relay_status",
+                  "label": "Relay",
+                  "type": "timeseries",
+                  "decimals": 0,
+                  "color": "#3F51B5",
+                  "settings": {
+                    "yAxisId": "default",
+                    "showLegend": true
+                  }
+                }
+              ],
+              "entityAliasId": "a35d7eb3-ca02-4ba6-ad7f-a5e5832b4bcd"
+            }
+          ]
+        },
+        "id": "939c160c-607f-47f1-8994-f4b54ae48a5d",
+        "typeFullFqn": "system.state_chart",
+        "type": "timeseries"
+      },
+      "27e77fd1-117e-41a3-879d-7433e65e591f": {
+        "sizeX": 0,
+        "sizeY": 0,
+        "row": 0,
+        "col": 0,
+        "config": {
+          "configMode": "basic",
+          "title": "Ambient Light",
+          "titleFont": {
+            "size": 21,
+            "sizeUnit": "px",
+            "weight": "500",
+            "lineHeight": "22px"
+          },
+          "showTitle": false,
+          "dropShadow": false,
+          "enableFullscreen": false,
+          "enableDataExport": false,
+          "borderRadius": "8px",
+          "widgetStyle": {
+            "box-shadow": "0px 2px 4px 0px #00000024;"
+          },
+          "units": "",
+          "decimals": 0,
+          "actions": {},
+          "settings": {
+            "minValue": 0,
+            "maxValue": 10000,
+            "gaugeType": "arc",
+            "showTitle": true,
+            "title": "Ambient Light",
+            "titleFont": {
+              "color": "#000000DE"
+            },
+            "labelFont": {},
+            "valueFont": {},
+            "minMaxFont": {},
+            "showMinMax": false,
+            "barColor": {
+              "type": "constant",
+              "color": "#FFEB3B",
+              "gradient": {
+                "advancedMode": false,
+                "gradient": [
+                  "rgba(0, 255, 0, 1)",
+                  "rgba(255, 0, 0, 1)"
+                ],
+                "gradientAdvanced": [
+                  {
+                    "source": {
+                      "type": "constant"
+                    },
+                    "color": "rgba(0, 255, 0, 1)"
+                  },
+                  {
+                    "source": {
+                      "type": "constant"
+                    },
+                    "color": "rgba(255, 0, 0, 1)"
+                  }
+                ],
+                "minValue": 0,
+                "maxValue": 10000
+              }
+            },
+            "showValue": true
+          },
+          "datasources": [
+            {
+              "type": "entity",
+              "dataKeys": [
+                {
+                  "name": "lux",
+                  "label": "Lux",
+                  "type": "timeseries",
+                  "color": "#000000DE",
+                  "settings": {}
+                }
+              ],
+              "entityAliasId": "a35d7eb3-ca02-4ba6-ad7f-a5e5832b4bcd"
+            }
+          ]
+        },
+        "id": "27e77fd1-117e-41a3-879d-7433e65e591f",
+        "typeFullFqn": "system.digital_gauges.simple_gauge_justgage",
+        "type": "latest"
+      },
+      "5ea22541-a3b7-4f39-bbdc-7024c2697eec": {
+        "sizeX": 0,
+        "sizeY": 0,
+        "row": 0,
+        "col": 0,
+        "config": {
+          "configMode": "basic",
+          "title": "Atmospheric & Conditions",
+          "titleFont": {
+            "size": 21,
+            "sizeUnit": "px",
+            "weight": "500",
+            "lineHeight": "22px"
+          },
+          "showTitle": true,
+          "dropShadow": false,
+          "useDashboardTimewindow": true,
+          "padding": "0px",
+          "margin": "0px",
+          "borderRadius": "8px",
+          "widgetStyle": {
+            "box-shadow": "0px 2px 4px 0px #00000024;"
+          },
+          "actions": {},
+          "settings": {
+            "dataZoom": false,
+            "showLegend": false,
+            "legendConfig": {
+              "position": "top",
+              "sortDataKeys": false,
+              "showMin": false,
+              "showMax": false,
+              "showAvg": true,
+              "showTotal": false,
+              "showLatest": false
+            },
+            "xAxis": {
+              "show": true,
+              "position": "bottom"
+            },
+            "yAxis": {
+              "show": true,
+              "position": "left"
+            },
+            "yAxes": {
+              "press": {
+                "id": "press",
+                "label": "Pressure",
+                "position": "left",
+                "min": null,
+                "max": null,
+                "units": "",
+                "decimals": 1,
+                "order": 0
+              },
+              "weather": {
+                "id": "weather",
+                "label": "Weather",
+                "position": "right",
+                "min": null,
+                "max": null,
+                "units": "",
+                "decimals": 1,
+                "order": 1
+              }
+            }
+          },
+          "datasources": [
+            {
+              "type": "entity",
+              "dataKeys": [
+                {
+                  "name": "pressure",
+                  "label": "Pressure",
+                  "type": "timeseries",
+                  "units": "",
+                  "decimals": 1,
+                  "color": "#FF9800",
+                  "settings": {
+                    "yAxisId": "press",
+                    "showLegend": true
+                  }
+                },
+                {
+                  "name": "windSpeed",
+                  "label": "Wind Speed",
+                  "type": "timeseries",
+                  "units": "",
+                  "decimals": 1,
+                  "color": "#607D8B",
+                  "settings": {
+                    "yAxisId": "weather",
+                    "showLegend": true
+                  }
+                },
+                {
+                  "name": "rainIntensity",
+                  "label": "Rain Intensity",
+                  "type": "timeseries",
+                  "units": "",
+                  "decimals": 1,
+                  "color": "#03A9F4",
+                  "settings": {
+                    "yAxisId": "weather",
+                    "showLegend": true
+                  }
+                }
+              ],
+              "entityAliasId": "a35d7eb3-ca02-4ba6-ad7f-a5e5832b4bcd"
+            }
+          ]
+        },
+        "id": "5ea22541-a3b7-4f39-bbdc-7024c2697eec",
+        "typeFullFqn": "system.time_series_chart",
+        "type": "timeseries"
+      }
+    },
+    "states": {
+      "default": {
+        "name": "Esp32 Dashboard",
+        "root": true,
+        "layouts": {
+          "main": {
+            "widgets": {
+              "86866f27-7486-4a3b-b4e9-952eca84e30b": {
+                "sizeX": 5,
+                "sizeY": 4,
+                "col": 18,
+                "row": 8
+              },
+              "c94eeed8-6804-403b-8892-c2f74b02464c": {
+                "sizeX": 11,
+                "sizeY": 4,
+                "col": 0,
+                "row": 4
+              },
+              "29209554-7581-49cb-b745-20ebd17dbca1": {
+                "sizeX": 11,
+                "sizeY": 4,
+                "col": 0,
+                "row": 0
+              },
+              "6a6e0d65-827a-46ab-a95a-65ec89f11de1": {
+                "sizeX": 5,
+                "sizeY": 4,
+                "col": 13,
+                "row": 8
+              },
+              "939c160c-607f-47f1-8994-f4b54ae48a5d": {
+                "sizeX": 8,
+                "sizeY": 4,
+                "col": 0,
+                "row": 8
+              },
+              "27e77fd1-117e-41a3-879d-7433e65e591f": {
+                "sizeX": 5,
+                "sizeY": 4,
+                "col": 8,
+                "row": 8
+              },
+              "5ea22541-a3b7-4f39-bbdc-7024c2697eec": {
+                "sizeX": 12,
+                "sizeY": 8,
+                "col": 11,
+                "row": 0
+              }
+            },
+            "gridSettings": {
+              "layoutType": "default",
+              "backgroundColor": "#eeeeee",
+              "columns": 24,
+              "margin": 10,
+              "outerMargin": true,
+              "backgroundSizeMode": "100%",
+              "autoFillHeight": true
+            }
+          }
+        }
+      }
+    },
+    "entityAliases": {
+      "a35d7eb3-ca02-4ba6-ad7f-a5e5832b4bcd": {
+        "id": "a35d7eb3-ca02-4ba6-ad7f-a5e5832b4bcd",
+        "alias": "Device",
+        "filter": {
+          "resolveMultiple": false,
+          "singleEntity": {
+            "entityType": "DEVICE",
+            "id": "dcaa7f70-3344-11f1-881b-c54ab1d7f1f4"
+          },
+          "type": "singleEntity"
+        }
+      }
+    },
+    "additionalInfo": {
+      "aiGenerated": true
+    },
+    "filters": {}
+  },
+  "resources": []
+}
