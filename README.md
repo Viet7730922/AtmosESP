@@ -99,4 +99,4 @@ DHT22 trả về NaN	Chân sai hoặc chưa khởi tạo	Kiểm tra DHTPIN, thê
 MIT - Dùng cho mục đích học tập và nghiên cứu.
 
 👨‍💻 Tác giả
-Võ Quốc Việt NTU - MSSV: 65134318
+Võ Quốc Việt NTU - MSSV: 65134318 - Nhóm 3: IoT và Ứng dụng
