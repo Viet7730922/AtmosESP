@@ -40,11 +40,60 @@
       "left": 307,
       "attrs": { "label": "Air Quality MQ135" }
     },
-    { "type": "wokwi-relay-module", "id": "relay", "top": 48.2, "left": 307.2, "attrs": {} }
+    { "type": "wokwi-relay-module", "id": "relay", "top": 38.6, "left": 307.2, "attrs": {} },
+    {
+      "type": "wokwi-text",
+      "id": "text_pressure",
+      "top": -135,
+      "left": 220,
+      "attrs": { "text": "Pressure (hPa)" }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "text_rain",
+      "top": 18,
+      "left": -288,
+      "attrs": { "text": "Rain (mm/h)" }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "text_wind",
+      "top": 182.4,
+      "left": -374.4,
+      "attrs": { "text": "Wind (mph)" }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "text_gas",
+      "top": 114,
+      "left": 307,
+      "attrs": { "text": "Air Quality MQ135" }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "text_dht",
+      "top": -134.4,
+      "left": -38.4,
+      "attrs": { "text": "DHT22 (Temp/Hum)" }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "text_ldr",
+      "top": -163.2,
+      "left": -336,
+      "attrs": { "text": "LDR (Light/Lux)" }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "text_relay",
+      "top": 9.6,
+      "left": 316.8,
+      "attrs": { "text": "Relay (Warning)" }
+    }
   ],
   "connections": [
-    [ "esp:TX", "$serialMonitor:RX", "", [] ],
-    [ "esp:RX", "$serialMonitor:TX", "", [] ],
+    [ "esp:TX", "$serialMonitor:RX", " ", [] ],
+    [ "esp:RX", "$serialMonitor:TX", " ", [] ],
     [ "esp:GND.1", "dht:GND", "black", [ "v-20", "h-100" ] ],
     [ "esp:3V3", "dht:VCC", "red", [ "h-100.61", "v-40", "h-69" ] ],
     [ "esp:4", "dht:SDA", "green", [ "h33.64", "v-182.4", "h-220.9" ] ],
