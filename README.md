@@ -62,9 +62,9 @@ WiFiClientSecure
 - Triển khai dưới dạng Web App (quyền Anyone hoặc Anyone with link)
 - Lấy URL và gán vào GOOGLE_SCRIPT_URL
 
-###📤 Dữ liệu gửi lên Google Sheets (JSON)
-</br>
-json
+### 📤 Dữ liệu gửi lên Google Sheets (JSON)
+
+```json
 {
   "temp": 26.5,
   "hum": 65.0,
